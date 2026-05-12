@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Refactored Todo App</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        button {
+            padding: 10px;
+            margin-left: 10px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            background-color: #00c9a7;
+            color: white;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            background: white;
+            color: black;
+            padding: 10px;
+            margin: 5px auto;
+            width: 300px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .delete-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>📝 Refactored Todo App</h2>
+
+<input type="text" id="taskInput" placeholder="Enter task">
+<button onclick="addTask()">Add</button>
+
+<ul id="taskList"></ul>
+
+<script>
+    const taskInput = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+
+    // Add Task
+    function addTask() {
+        const taskText = taskInput.value.trim();
+
+        if (taskText === "") {
+            alert("Please enter a task");
+            return;
+        }
+
+        const listItem = createTaskElement(taskText);
+        taskList.appendChild(listItem);
+
+        taskInput.value = "";
+    }
+
+    // Create Task Element (Reusable Function)
+    function createTaskElement(taskText) {
+        const li = document.createElement("li");
+        li.textContent = taskText;
+
+        const deleteBtn = createDeleteButton(li);
+
+        li.appendChild(deleteBtn);
+        return li;
+    }
+
+    // Create Delete Button
+    function createDeleteButton(listItem) {
+        const button = document.createElement("button");
+        button.textContent = "X";
+        button.className = "delete-btn";
+
+        button.onclick = function () {
+            taskList.removeChild(listItem);
+        };
+
+        return button;
+    }
+</script>
+
+</body>
+</html>
